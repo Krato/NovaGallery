@@ -35,11 +35,15 @@ class AlbumObserver
     {
         $storage = $this->getStorage();
 
-        $oldAlbumList = $album->getOriginal('slug');
+        $oldAlbumSlug = $album->getOriginal('slug');
 
-        if ($storage->has($oldAlbumList)) {
-            if ($storage->rename($oldAlbumList, $album->slug)) {
-                $this->replacePhotosUrl($album, $oldAlbumList, $album->slug);
+        if ($oldAlbumSlug == $album->slug) {
+            return true;
+        }
+
+        if ($storage->has($oldAlbumSlug)) {
+            if ($storage->rename($oldAlbumSlug, $album->slug)) {
+                $this->replacePhotosUrl($album, $oldAlbumSlug, $album->slug);
 
                 return true;
             }
@@ -65,10 +69,10 @@ class AlbumObserver
      * @param $oldUrl
      * @param $newUrl
      */
-    private function replacePhotosUrl(Album $album, $oldUrl, $newUrl)
+    private function replacePhotosUrl(Album $album, $oldPath, $newPath)
     {
-        $album->photos->each(function ($photo) use ($oldUrl, $newUrl) {
-            $photo->path = str_replace($oldUrl, $newUrl, $photo->path);
+        $album->photos->each(function ($photo) use ($oldPath, $newPath) {
+            $photo->path = str_replace($oldPath, $newPath, $photo->path);
             $photo->save();
         });
     }
