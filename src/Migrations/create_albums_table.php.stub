@@ -18,7 +18,6 @@ class CreateAlbumsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('description')->nullable();
-            $table->integer('order');
             $table->timestamps();
         });
 
