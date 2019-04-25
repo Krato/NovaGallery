@@ -42,7 +42,7 @@ class AlbumObserver
         }
 
         if ($storage->has($oldAlbumSlug)) {
-            if ($storage->rename($oldAlbumSlug, $album->slug)) {
+            if ($this->renameFolder($oldAlbumSlug, $album->slug)) {
                 $this->replacePhotosUrl($album, $oldAlbumSlug, $album->slug);
 
                 return true;
@@ -62,6 +62,34 @@ class AlbumObserver
         $storage = $this->getStorage();
 
         $storage->deleteDirectory($album->slug);
+    }
+
+    /**
+     * Rename folder moving all files to new location and then deleting old folder.
+     * s3 and others adapters dont work just renaming the folder. Thats the way to do it.
+     *
+     * @param string $oldUrl
+     * @param string $newUrl
+     */
+    private function renameFolder($oldUrl, $newUrl)
+    {
+        $storage = $this->getStorage();
+
+        if ($storage->makeDirectory($newUrl)) {
+            $files = $storage->files($oldUrl);
+
+            foreach ($files as $file) {
+                $newFile = str_replace($oldUrl, $newUrl, $file);
+                $storage->move($file, $newFile);
+                $storage->delete($file);
+            }
+
+            if ($storage->deleteDirectory($oldUrl)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

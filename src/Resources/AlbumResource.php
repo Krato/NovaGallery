@@ -87,7 +87,7 @@ class AlbumResource extends Resource
 
             TextWithSlug::make(__('Name'), 'name')
                 ->sortable()
-                ->slug('Slug')
+                ->slug('slug')
                 ->rules('required'),
 
             Slug::make(__('Slug'), 'slug')
