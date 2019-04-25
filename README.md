@@ -18,6 +18,8 @@ Then, register the tool in NovaServiceProvider.php
 
 ```php
 
+use EricLagarda\NovaGallery\NovaGallery;
+
 public function tools()
 {
     return [
