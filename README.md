@@ -2,6 +2,7 @@
 
 Photo gallery tool for Laravel Nova.
 
+
 ![preview](https://user-images.githubusercontent.com/74367/56567874-1870a700-65b6-11e9-90a3-502acc857f12.png)
 
 
