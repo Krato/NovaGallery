@@ -10,6 +10,7 @@ use EricLagarda\NovaGallery\Models\Album;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 
@@ -100,6 +101,8 @@ class AlbumResource extends Resource
                 ->hideWhenUpdating(),
 
             Trix::make(__('Description'), 'description'),
+
+            Image::make(__('Preview Image'),'image')->path('albums'),
 
             GalleryResourceTool::make(),
         ];

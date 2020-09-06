@@ -16,7 +16,7 @@ class Album extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'description', 'order'];
+    protected $fillable = ['name', 'description', 'image', 'order'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
