@@ -12,13 +12,7 @@ class AlbumObserver
      */
     public function creating(Album $album)
     {
-        $storage = $this->getStorage();
-
-        if ($storage->makeDirectory($album->slug)) {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     /**

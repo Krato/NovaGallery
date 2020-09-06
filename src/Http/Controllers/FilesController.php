@@ -37,7 +37,7 @@ class FilesController extends Controller
         $album = Album::findOrFail($request->album);
 
         $path = $request->file('file')->store(
-            $album->slug,
+            'albums/'.$album->id,
             $this->disk
         );
 
